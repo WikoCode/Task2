@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
@@ -49,7 +48,8 @@ fun UserInputForm() {
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
             value = name,
@@ -62,10 +62,14 @@ fun UserInputForm() {
             value = location,
             onValueChange = { location = it },
             label = { Text("Location") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
         )
 
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+        ) {
             Checkbox(
                 checked = isChecked,
                 onCheckedChange = { isChecked = it }
@@ -74,8 +78,8 @@ fun UserInputForm() {
         }
 
         Row(
-            horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth().weight(1f)
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(bottom = 16.dp)
         ) {
             Button(
                 onClick = {
@@ -83,8 +87,7 @@ fun UserInputForm() {
                         Toast.makeText(context, "Name: $name, Location: $location", Toast.LENGTH_SHORT).show()
                     }
                 },
-                enabled = isChecked,
-                modifier = Modifier.padding(end = 16.dp)
+                enabled = isChecked
             ) {
                 Text("Toast", fontSize = 14.sp)
             }
@@ -103,11 +106,9 @@ fun UserInputForm() {
 
         Text(
             text = displayedText,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
             style = MaterialTheme.typography.bodyLarge
         )
     }
 }
+
 
